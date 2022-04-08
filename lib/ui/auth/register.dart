@@ -151,53 +151,56 @@ class _RegisterState extends State<Register> {
             ),
             body: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 15.0,),
-                    TextFormField(
-                      decoration: textFieldDecoration.copyWith(label: const Text('Email')),
-                      validator: (val) => val!.isEmpty ? 'Please enter email':null,
-                      controller: emailController,
-                    ),
-                    const SizedBox(height: 15.0,),
-                    TextFormField(
-                      decoration: textFieldDecoration.copyWith(label: const Text('Password')),
-                      maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                      maxLength: 6,
-                      obscureText: true,
-                      validator: (val) => val!.length < 6 ? 'Password must be minimum 6 character':null ,
-                      controller: passwordController,
-                    ),
-
-                    Text(
-                      errorMessage,
-                      style: TextStyle(
-                        color: Colors.red[900],
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 15.0,),
+                      TextFormField(
+                        decoration: textFieldDecoration.copyWith(label: const Text('Email')),
+                        validator: (val) => val!.isEmpty ? 'Please enter email':null,
+                        controller: emailController,
                       ),
-                    ),
-
-                    const SizedBox(height: 15.0,),
-
-                    OutlinedButton(
-                      onPressed: () async{
-                         await onSignUp(emailController, passwordController);
-                      },
-                      child: const Text('sign Up'),
-                      style: ButtonStyle(
-                          overlayColor: MaterialStateProperty.all(Colors.brown.shade100),
-                          foregroundColor: MaterialStateProperty.all(Colors.brown),
-                          side: MaterialStateProperty.all(const BorderSide(
-                            color: Colors.brown,
-                            width: 1.0,
-                          )),
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ))
+                      const SizedBox(height: 15.0,),
+                      TextFormField(
+                        decoration: textFieldDecoration.copyWith(label: const Text('Password')),
+                        maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                        maxLength: 6,
+                        obscureText: true,
+                        validator: (val) => val!.length < 6 ? 'Password must be minimum 6 character':null ,
+                        controller: passwordController,
                       ),
-                    ),
-                  ],
+
+                      Text(
+                        errorMessage,
+                        style: TextStyle(
+                          color: Colors.red[900],
+                        ),
+                      ),
+
+                      const SizedBox(height: 15.0,),
+
+                      OutlinedButton(
+                        onPressed: () async{
+                           await onSignUp(emailController, passwordController);
+                        },
+                        child: const Text('sign Up'),
+                        style: ButtonStyle(
+                            fixedSize: MaterialStateProperty.all(const Size.fromWidth(200.0)),
+                            overlayColor: MaterialStateProperty.all(Colors.brown.shade100),
+                            foregroundColor: MaterialStateProperty.all(Colors.brown),
+                            side: MaterialStateProperty.all(const BorderSide(
+                              color: Colors.brown,
+                              width: 1.0,
+                            )),
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ))
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

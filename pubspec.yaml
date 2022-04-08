@@ -39,6 +39,7 @@ dependencies:
   crypto: ^3.0.1
   email_validator: ^2.0.1
   connectivity_plus: ^2.2.1
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:

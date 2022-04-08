@@ -172,6 +172,7 @@ class _LoginState extends State<Login> {
                       },
                       child: const Text('Sign In'),
                       style: ButtonStyle(
+                          fixedSize: MaterialStateProperty.all(const Size.fromWidth(200.0)),
                           overlayColor: MaterialStateProperty.all(Colors.green.shade100),
                           foregroundColor: MaterialStateProperty.all(Colors.green),
                           side: MaterialStateProperty.all(const BorderSide(
@@ -194,6 +195,7 @@ class _LoginState extends State<Login> {
                       },
                       child: const Text('Sign Up'),
                       style: ButtonStyle(
+                          fixedSize: MaterialStateProperty.all(const Size.fromWidth(200.0)),
                           overlayColor: MaterialStateProperty.all(Colors.brown.shade100),
                           foregroundColor: MaterialStateProperty.all(Colors.brown),
                           side: MaterialStateProperty.all(const BorderSide(

@@ -48,7 +48,7 @@ class DbController{
     Batch batch = db.batch();
     batch.execute(sqlUser);
     batch.execute(sqlFruit);
-    batch.commit();
+    await batch.commit();
   }
 
 }
