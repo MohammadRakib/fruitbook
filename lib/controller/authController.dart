@@ -27,7 +27,7 @@ class AuthController{
   }
 
   Future<bool> checkIfUserexist(Database db, String email) async{
-    String sqluser = 'SELECT * FROM users WHERE email = $email';
+    String sqluser = 'users WHERE email = \'$email\'';
     final List<Map<String, dynamic>> maps = await db.query(sqluser);
     return maps.isNotEmpty? true:false;
   }
@@ -65,14 +65,14 @@ class AuthController{
   }
 
   Future<User?> searchUser(Database db, String email) async{
-    String sqluser = 'SELECT * FROM users WHERE email = $email';
+    String sqluser = 'users WHERE email = \'$email\'';
     final List<Map<String, dynamic>> maps = await db.query(sqluser);
     if(maps.isNotEmpty){
       final userList = List.generate(maps.length, (i) {
         return User(
             email: maps[i]['email'],
             password: maps[i]['password'],
-            loginStatus: maps[i]['loginStatus']
+            loginStatus: maps[i]['loginStatus'] == 1? true:false
         );
       });
       return userList[0];
@@ -83,14 +83,14 @@ class AuthController{
   //get current user
   Future<User?> getCurrentUser() async{
     final db = await DbController.instance.database;
-    String sqluser = 'SELECT * FROM users WHERE loginStatus = 1';
+    String sqluser = 'users WHERE loginStatus = 1';
     final List<Map<String, dynamic>> maps = await db.query(sqluser);
     if(maps.isNotEmpty){
       final userList = List.generate(maps.length, (i) {
         return User(
             email: maps[i]['email'],
             password: maps[i]['password'],
-            loginStatus: maps[i]['loginStatus']
+            loginStatus: maps[i]['loginStatus'] == 1? true:false
         );
       });
       return userList[0];
@@ -107,6 +107,20 @@ class AuthController{
       return true;
     }
     return false;
+  }
+
+  Future<List<User>> getAllUser()async{
+    final db = await DbController.instance.database;
+    final List<Map<String, dynamic>> maps = await db.query('users');
+    final userList = List.generate(maps.length, (i) {
+      return User(
+          email: maps[i]['email'],
+          password: maps[i]['password'],
+          loginStatus: maps[i]['loginStatus'] == 1? true:false
+      );
+    });
+    print('map: $maps');
+    return userList;
   }
 
 }

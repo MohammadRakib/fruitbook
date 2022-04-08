@@ -1,6 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../model/user.dart';
+
 class DbController{
   // DbController singleton
   static final DbController instance = DbController._();
