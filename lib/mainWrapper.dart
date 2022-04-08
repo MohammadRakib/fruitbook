@@ -12,11 +12,11 @@ class MainWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return FutureBuilder(
+    return FutureBuilder<User?>(
         future: authController.getCurrentUser(),
         builder: (context, snapshot) {
-          currentUser = snapshot.data as User?;
-          return currentUser!=null? Home():Login();
+          currentUser = snapshot.data;
+          return currentUser!=null? const Home():const Login();
         }
     );
   }

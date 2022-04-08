@@ -1,6 +1,10 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fruitbook/ui/auth/register.dart';
 
+import 'controller/checkInternetConnection.dart';
 import 'mainWrapper.dart';
 
 void main() {
@@ -10,7 +14,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,4 +24,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
