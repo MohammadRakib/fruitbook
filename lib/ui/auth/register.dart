@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../../controller/authController.dart';
 import '../Shared/Loading.dart';
 import '../Shared/decoration.dart';
-
+import 'package:email_validator/email_validator.dart';
 
 class Register extends StatefulWidget {
 
@@ -24,6 +24,50 @@ class _RegisterState extends State<Register> {
   bool loading = false;
   String connectionStatus = 'Online';
   Color conColor = Colors.green.shade900;
+
+  // check if email format is correct
+  bool emailValidate(){
+    return EmailValidator.validate(email);
+  }
+
+  //registering user and validation
+  Future register() async{
+    bool isreg = await _auth.register(email, password);
+    if(!isreg){
+      setState(() {
+        errorMessage = 'Email already exist, please enter another email';
+        loading = false;
+      });
+    }else{
+      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, '/');
+    }
+  }
+
+  // this method is called when sign up button is pressed
+  Future onSignUp(TextEditingController emailcontroler, TextEditingController passwordcontroler)async{
+    if(_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      email = emailcontroler.value.text.trim();
+      password = passwordcontroler.value.text.trim();
+
+      if(emailValidate()){
+        register();
+      }else{
+        setState(() {
+          loading = false;
+          errorMessage = 'Please enter email in correct format';
+        });
+      }
+
+    }else{
+      setState(() {
+        errorMessage = '';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,26 +114,19 @@ class _RegisterState extends State<Register> {
                 validator: (val) => val!.length < 6 ? 'Password must be minimum 6 character':null ,
                 controller: passwordcontroler,
               ),
+
+              Text(
+                errorMessage,
+                style: TextStyle(
+                  color: Colors.red[900],
+                ),
+              ),
+
               const SizedBox(height: 15.0,),
+
               OutlinedButton(
                 onPressed: () async{
-                  if(_formKey.currentState!.validate()) {
-                    setState(() {
-                      loading = true;
-                    });
-                    email = emailcontroler.value.text.trim();
-                    password = passwordcontroler.value.text.trim();
-                    bool isreg = await _auth.register(email, password);
-                    if(!isreg){
-                      setState(() {
-                        errorMessage = 'Email already exist, please enter another email';
-                        loading = false;
-                      });
-                    }else{
-                      Navigator.pop(context);
-                      Navigator.pushReplacementNamed(context, '/');
-                    }
-                  }
+                   await onSignUp(emailcontroler, passwordcontroler);
                 },
                 child: const Text('sign Up'),
                 style: ButtonStyle(
@@ -102,13 +139,6 @@ class _RegisterState extends State<Register> {
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.0),
                     ))
-                ),
-              ),
-              const SizedBox(height: 15.0,),
-              Text(
-                errorMessage,
-                style: TextStyle(
-                  color: Colors.red[900],
                 ),
               ),
             ],

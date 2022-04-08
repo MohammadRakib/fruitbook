@@ -24,10 +24,41 @@ class _LoginState extends State<Login> {
   String connectionStatus = 'Online';
   Color conColor = Colors.green.shade900;
 
+  // sign in user
+  Future signIn()async{
+    bool islog = await _auth.login(email, password);
+    if(!islog){
+      setState(() {
+        errorMessage = 'Incorrect email or password';
+        loading = false;
+      });
+    }else{
+      Navigator.pushReplacementNamed(context, '/');
+    }
+  }
+
+  // this method will be invoked when sign in button is pressed
+  Future onSignIn(TextEditingController emailController,TextEditingController passwordController)async{
+    if(_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      email = emailController.value.text.trim();
+      password = passwordController.value.text.trim();
+
+      await signIn();
+
+    }else{
+      setState(() {
+        errorMessage = '';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailcontroler = TextEditingController();
-    TextEditingController passwordcontroler = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
     return loading? const Loading() : Scaffold(
       backgroundColor: Colors.red.shade50,
       appBar: AppBar(
@@ -58,7 +89,7 @@ class _LoginState extends State<Login> {
                 TextFormField(
                   decoration: textFieldDecoration.copyWith(label: const Text('Email')),
                   validator: (val) => val!.isEmpty ? 'Please enter email':null,
-                  controller: emailcontroler,
+                  controller: emailController,
                 ),
                 const SizedBox(height: 15.0,),
                 TextFormField(
@@ -67,34 +98,27 @@ class _LoginState extends State<Login> {
                   maxLength: 6,
                   obscureText: true,
                   validator: (val) => val!.length < 6 ? 'Password must be minimum 6 character':null ,
-                  controller: passwordcontroler,
+                  controller: passwordController,
                 ),
+
+                Text(
+                  errorMessage,
+                  style: TextStyle(
+                    color: Colors.red[900],
+                  ),
+                ),
+
                 const SizedBox(height: 10.0,),
                 OutlinedButton(
                   onPressed: () async{
-                    if(_formKey.currentState!.validate()) {
-                      setState(() {
-                        loading = true;
-                      });
-                      email = emailcontroler.value.text.trim();
-                      password = passwordcontroler.value.text.trim();
-                      bool islog = await _auth.login(email, password);
-                      if(!islog){
-                        setState(() {
-                          errorMessage = 'Incorrect email or password';
-                          loading = false;
-                        });
-                      }else{
-                        Navigator.pushReplacementNamed(context, '/');
-                      }
-                    }
+                    await onSignIn(emailController, passwordController);
                   },
                   child: const Text('Sign In'),
                   style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all(Colors.red.shade100),
-                      foregroundColor: MaterialStateProperty.all(Colors.red),
+                      overlayColor: MaterialStateProperty.all(Colors.green.shade100),
+                      foregroundColor: MaterialStateProperty.all(Colors.green),
                       side: MaterialStateProperty.all(const BorderSide(
-                        color: Colors.red,
+                        color: Colors.green,
                         width: 1.0,
                       )),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -113,10 +137,10 @@ class _LoginState extends State<Login> {
                   },
                   child: const Text('Sign Up'),
                   style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all(Colors.red.shade100),
-                      foregroundColor: MaterialStateProperty.all(Colors.red),
+                      overlayColor: MaterialStateProperty.all(Colors.brown.shade100),
+                      foregroundColor: MaterialStateProperty.all(Colors.brown),
                       side: MaterialStateProperty.all(const BorderSide(
-                        color: Colors.red,
+                        color: Colors.brown,
                         width: 1.0,
                       )),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -143,13 +167,6 @@ class _LoginState extends State<Login> {
                 //   ),
                 // ),
 
-                const SizedBox(height: 15.0,),
-                Text(
-                  errorMessage,
-                  style: TextStyle(
-                    color: Colors.red[900],
-                  ),
-                ),
               ],
             ),
           ),
