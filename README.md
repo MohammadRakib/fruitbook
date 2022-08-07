@@ -5,6 +5,7 @@ This is a flutter application. This app read data from api and store them into s
 ## Components Used
 
 - Android Studio
+- [Frutyvice API](https://www.fruityvice.com/#1) 
 - Different flutter packages
   - sqflite (For sqlite database)
   - flutter_spinkit (For loading screen)
