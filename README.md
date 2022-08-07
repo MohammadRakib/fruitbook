@@ -20,5 +20,5 @@ This is a flutter application. This app read data from api and store them into s
 - [Home](#home)
 - [Fruit Information Details](#fruit-information-details)
 - [Network connectivity Check](#network-connectivity-check)
--Logout
+- [Logout](#logout)
 
