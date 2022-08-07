@@ -37,12 +37,15 @@ class DbController{
 
     // fruits database
     String fruitName = 'fruitName TEXT NOT NULL';
+    String genus = 'genus TEXT NOT NULL';
+    String family = 'family TEXT NOT NULL';
     String protein = 'protein INTEGER NOT NULL';
     String carbohydrates = 'carbohydrates INTEGER NOT NULL';
     String calories = 'calories INTEGER NOT NULL';
     String fat = 'fat INTEGER NOT NULL';
     String sugar = 'sugar INTEGER NOT NULL';
-    String sqlFruit = 'CREATE TABLE fruits($id, $fruitName, $carbohydrates, $protein, $calories, $fat, $sugar)';
+    String order = 'ordering TEXT NOT NULL';
+    String sqlFruit = 'CREATE TABLE fruits($id, $fruitName, $genus, $family, $carbohydrates, $protein, $calories, $fat, $sugar, $order)';
 
     // executing the queries
     Batch batch = db.batch();

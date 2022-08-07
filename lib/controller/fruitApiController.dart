@@ -27,11 +27,14 @@ List<Fruit> convertData(List data){
     dynamic nutritions = x['nutritions'];
 
     Fruit fruit = Fruit(fruitName: x['name'],
+        genus: x['genus'],
+        family: x['family'],
         carbohydrates: nutritions['carbohydrates'],
         protein: nutritions['protein'],
         calories: nutritions['calories'],
         fat: nutritions['fat'],
-        sugar: nutritions['sugar']);
+        sugar: nutritions['sugar'],
+        order: x['order']);
 
     fruitList.add(fruit);
   }
@@ -59,11 +62,14 @@ Future<List<Fruit>> getAllFruit()async{
   final List<Map<String, dynamic>> maps = await db.query('fruits');
   final fruitList = List.generate(maps.length, (i) {
     return Fruit(fruitName: maps[i]['fruitName'],
+        genus: maps[i]['genus'],
+        family: maps[i]['family'],
         carbohydrates: maps[i]['carbohydrates'],
         protein: maps[i]['protein'],
         calories: maps[i]['calories'],
         fat: maps[i]['fat'],
-        sugar: maps[i]['sugar']);
+        sugar: maps[i]['sugar'],
+        order: maps[i]['ordering']);
   });
   return fruitList;
 }
