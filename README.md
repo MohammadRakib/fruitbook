@@ -49,7 +49,7 @@ By clicking item from fruit list user can see details information about the frui
 
 ### Network connectivity Check
 
-This app also continuously check internet connection and show network status in the UI.
+This app also continuously check internet connection and show network status in the UI. When database fruit table is empty the app won't read data from api without internet connection and alert user through UI.
 
 <img align="left" src="ss/internet_checking1.png" width="430" height="700">
 <img align="left" src="ss/internet_checking2.png" width="430" height="700">
