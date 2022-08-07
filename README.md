@@ -53,7 +53,8 @@ This app also continuously check internet connection and show network status in 
 
 <img align="left" src="ss/internet_checking1.png" width="430" height="700">
 <img align="left" src="ss/internet_checking2.png" width="430" height="700">
-<img src="ss/internet_checking3.png" width="430" height="700">
+<img align="left" src="ss/internet_checking3.png" width="430" height="700">
+<img src="ss/home2.png" width="430" height="700">
 
 ### Logout
 
