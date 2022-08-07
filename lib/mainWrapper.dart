@@ -9,7 +9,6 @@ class MainWrapper extends StatelessWidget {
 
   final AuthController authController = AuthController();
   static late User? currentUser;
-
   @override
   Widget build(BuildContext context){
     return FutureBuilder<User?>(
